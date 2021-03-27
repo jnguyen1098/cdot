@@ -1,0 +1,33 @@
+SRC = .
+INC = .
+
+THISFILE = lintfile
+SHELL = /bin/bash
+
+lint:
+	make -f $(THISFILE) cppcheck
+	make -f $(THISFILE) splint
+	make -f $(THISFILE) clang-analyze
+	make -f $(THISFILE) clang-tidy
+	make -f $(THISFILE) clang-format
+
+cppcheck:
+	@echo "Running cppcheck"
+	cppcheck --enable=all -I$(INC) --inconclusive -v $(SRC)
+
+splint:
+	@echo "Running splint"
+	splint -I$(INC) $(SRC)/*.c
+
+clang-analyze:
+	@echo "Running clang's static analyzer"
+	clang --analyze $(SRC)/*.c -I$(INC)
+
+clang-tidy:
+	@echo "Running clang-tidy"
+	clang-tidy -checks=* $(SRC)/*.c -header-filter=.* -- -I$(INC)
+
+clang-format:
+	@echo "Running clang-format"
+	diff -u <(cat $(SRC)/*.c) <(clang-format $(SRC)/*.c)
+	diff -u <(cat $(INC)/*.h) <(clang-format $(INC)/*.h)

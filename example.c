@@ -13,22 +13,24 @@ void cdot_stdout_example(void)
 void cdot_file_example(void)
 {
     FILE *fp;
-    if ((fp = fopen("example.gv", "w"))) {
+    if ((fp = fopen("example.gv", "e"))) {
         INIT_CDOT(fp);
 
-        const char *line = "123456789";
-        char first[2] = "";
-        char last[2] = "";
+        const char *line     = "123456789";
+        char        first[2] = "";
+        char        last[2]  = "";
 
         // Creates a long centipede graph
         for (int i = 0; line[i + 1]; i++) {
             first[0] = line[i];
-            last[0] = line[i + 1];
+            last[0]  = line[i + 1];
             ADD_EDGE(first, last);
         }
 
         DESTROY_CDOT();
-    } else fprintf(stderr, "???\n");
+    } else {
+        fprintf(stderr, "???\n");
+    }
 }
 
 int main(void)

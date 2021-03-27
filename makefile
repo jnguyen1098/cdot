@@ -9,7 +9,10 @@ all $(EXE): $(OBJS) $(DEPS)
 run: $(EXE)
 	./$(EXE)
 
+lint:
+	make -f lintfile lint
+
 clean:
 	rm -rf $(EXE) example.gv *.o a.out
 
-.PHONY: all run clean
+.PHONY: all run lint clean
