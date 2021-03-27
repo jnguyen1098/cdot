@@ -105,3 +105,5 @@ int main(void)
 ## Attribution
 
 ASCII art of Seedot from https://asciiart.club/
+
+ASCII art of the cdot banner from https://fsymbols.com/generators/carty/
